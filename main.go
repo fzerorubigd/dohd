@@ -83,7 +83,11 @@ func main() {
 
 	flag.Parse()
 
-	ctx, cnl := signal.NotifyContext(context.Background(), syscall.SIGILL)
+	ctx, cnl := signal.NotifyContext(context.Background(), syscall.SIGKILL,
+		syscall.SIGINT,
+		syscall.SIGTERM,
+		syscall.SIGQUIT,
+		syscall.SIGABRT)
 	defer cnl()
 
 	dohClient := &dohHandler{
